@@ -49,7 +49,7 @@ export function WarReport({ open, onClose }: WarReportProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
           onClick={onClose}
         >
           <motion.div
@@ -60,12 +60,12 @@ export function WarReport({ open, onClose }: WarReportProps) {
             className="bg-card border border-border rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto"
           >
             {!confirmed ? (
-              <div className="p-6 space-y-6">
+              <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
                 {/* Header */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Scroll className="w-6 h-6 text-primary" />
-                    <h2 className="text-xl font-bold">Relatório de Guerra</h2>
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Scroll className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    <h2 className="text-lg sm:text-xl font-bold">Relatório de Guerra</h2>
                   </div>
                   <button onClick={onClose} className="p-1 text-muted-foreground hover:text-foreground">
                     <X className="w-5 h-5" />
@@ -73,37 +73,37 @@ export function WarReport({ open, onClose }: WarReportProps) {
                 </div>
 
                 {/* Rating */}
-                <div className="text-center py-4">
-                  <RatingIcon className={`w-12 h-12 mx-auto mb-3 ${rating.color}`} />
-                  <p className={`text-2xl font-bold ${rating.color}`}>{rating.label}</p>
-                  <p className="text-5xl font-bold text-foreground mt-2">{rate}%</p>
-                  <p className="text-sm text-muted-foreground mt-1">de conclusão</p>
+                <div className="text-center py-3 sm:py-4">
+                  <RatingIcon className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 ${rating.color}`} />
+                  <p className={`text-xl sm:text-2xl font-bold ${rating.color}`}>{rating.label}</p>
+                  <p className="text-4xl sm:text-5xl font-bold text-foreground mt-1.5 sm:mt-2">{rate}%</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">de conclusão</p>
                 </div>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="bg-secondary/50 rounded-lg p-3 text-center">
-                    <p className="text-xl font-bold text-green-400">{completedCount}</p>
-                    <p className="text-xs text-muted-foreground">Concluídas</p>
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                  <div className="bg-secondary/50 rounded-lg p-2.5 sm:p-3 text-center">
+                    <p className="text-lg sm:text-xl font-bold text-green-400">{completedCount}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">Concluídas</p>
                   </div>
-                  <div className="bg-secondary/50 rounded-lg p-3 text-center">
-                    <p className="text-xl font-bold text-red-400">{pending.length}</p>
-                    <p className="text-xs text-muted-foreground">Pendentes</p>
+                  <div className="bg-secondary/50 rounded-lg p-2.5 sm:p-3 text-center">
+                    <p className="text-lg sm:text-xl font-bold text-red-400">{pending.length}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">Pendentes</p>
                   </div>
-                  <div className="bg-secondary/50 rounded-lg p-3 text-center">
-                    <p className="text-xl font-bold text-primary">{xpEarned}</p>
-                    <p className="text-xs text-muted-foreground">XP ganho</p>
+                  <div className="bg-secondary/50 rounded-lg p-2.5 sm:p-3 text-center">
+                    <p className="text-lg sm:text-xl font-bold text-primary">{xpEarned}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">XP ganho</p>
                   </div>
                 </div>
 
                 {/* Pending tasks */}
                 {pending.length > 0 && (
                   <div>
-                    <p className="text-sm font-semibold text-red-400 mb-2">Tarefas não completadas:</p>
+                    <p className="text-xs sm:text-sm font-semibold text-red-400 mb-2">Tarefas não completadas:</p>
                     <div className="space-y-1">
                       {pending.map(t => (
-                        <p key={t.id} className="text-sm text-muted-foreground flex items-center gap-2">
-                          <span className="w-1 h-1 rounded-full bg-red-500" />
+                        <p key={t.id} className="text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-red-500 shrink-0" />
                           {t.title}
                         </p>
                       ))}
@@ -113,8 +113,8 @@ export function WarReport({ open, onClose }: WarReportProps) {
 
                 {/* Streak info */}
                 <div className="flex items-center justify-between bg-secondary/30 rounded-lg p-3">
-                  <span className="text-sm text-muted-foreground">Streak atual</span>
-                  <div className="flex items-center gap-1.5 text-orange-400 font-bold">
+                  <span className="text-xs sm:text-sm text-muted-foreground">Streak atual</span>
+                  <div className="flex items-center gap-1.5 text-orange-400 font-bold text-sm">
                     <Flame className="w-4 h-4 fill-current" />
                     {user.streak} dias
                   </div>
@@ -122,7 +122,7 @@ export function WarReport({ open, onClose }: WarReportProps) {
 
                 {/* Note */}
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground block mb-2">
+                  <label className="text-xs sm:text-sm font-medium text-muted-foreground block mb-2">
                     Nota pessoal (opcional)
                   </label>
                   <textarea
@@ -135,16 +135,16 @@ export function WarReport({ open, onClose }: WarReportProps) {
                 </div>
 
                 {/* Actions */}
-                <div className="flex gap-3">
+                <div className="flex gap-2 sm:gap-3">
                   <button
                     onClick={onClose}
-                    className="flex-1 px-4 py-3 text-sm text-muted-foreground hover:text-foreground border border-border rounded-lg transition-colors"
+                    className="flex-1 px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm text-muted-foreground hover:text-foreground border border-border rounded-lg transition-colors"
                   >
                     Voltar
                   </button>
                   <button
                     onClick={handleEndDay}
-                    className="flex-1 px-4 py-3 text-sm font-semibold bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                    className="flex-1 px-3 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm font-semibold bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
                   >
                     Encerrar Dia
                   </button>
@@ -154,11 +154,11 @@ export function WarReport({ open, onClose }: WarReportProps) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="p-12 text-center"
+                className="p-8 sm:p-12 text-center"
               >
-                <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-foreground mb-2">Dia encerrado!</h3>
-                <p className="text-muted-foreground">Descanse. Amanhã é um novo campo de batalha.</p>
+                <Trophy className="w-12 h-12 sm:w-16 sm:h-16 text-yellow-400 mx-auto mb-3 sm:mb-4" />
+                <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Dia encerrado!</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">Descanse. Amanhã é um novo campo de batalha.</p>
               </motion.div>
             )}
           </motion.div>

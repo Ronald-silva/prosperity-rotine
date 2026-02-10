@@ -15,23 +15,23 @@ export function Strategy() {
     <div className="space-y-8 animate-in fade-in duration-500">
       <AddObjectiveModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Sala de Guerra</h1>
-          <p className="text-muted-foreground">Defina e rastreie seus objetivos estratégicos.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Sala de Guerra</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Defina e rastreie seus objetivos estratégicos.</p>
         </div>
-        <button 
+        <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors"
+          className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg font-medium flex items-center gap-2 transition-colors text-sm sm:text-base w-full sm:w-auto justify-center sm:justify-start"
         >
           <Target className="w-4 h-4" />
           Novo Objetivo
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Weekly Sprint */}
-        <section className="bg-card border border-border rounded-xl p-6">
+        <section className="bg-card border border-border rounded-xl p-4 sm:p-6">
           <h2 className="flex items-center gap-2 text-xl font-semibold mb-6 text-purple-400">
             <Calendar className="w-5 h-5" />
             Sprint Semanal
@@ -63,7 +63,7 @@ export function Strategy() {
         </section>
 
         {/* Monthly Vision */}
-        <section className="bg-card border border-border rounded-xl p-6">
+        <section className="bg-card border border-border rounded-xl p-4 sm:p-6">
           <h2 className="flex items-center gap-2 text-xl font-semibold mb-6 text-blue-400">
             <TrendingUp className="w-5 h-5" />
             Visão Mensal

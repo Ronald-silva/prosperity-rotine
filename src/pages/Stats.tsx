@@ -58,18 +58,18 @@ function Heatmap({ history, todayDate, todayRate }: {
   };
 
   return (
-    <div className="bg-card/50 border border-border rounded-xl p-6">
-      <h2 className="text-lg font-semibold mb-1">Mapa de Consistência</h2>
-      <p className="text-sm text-muted-foreground mb-4">Últimos 90 dias — cada quadrado é um dia</p>
+    <div className="bg-card/50 border border-border rounded-xl p-4 sm:p-6">
+      <h2 className="text-base sm:text-lg font-semibold mb-1">Mapa de Consistência</h2>
+      <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">Últimos 90 dias — cada quadrado é um dia</p>
 
-      <div className="flex gap-1 overflow-x-auto pb-2">
+      <div className="flex gap-[3px] sm:gap-1 overflow-x-auto pb-2">
         {weeks.map((week, wi) => (
-          <div key={wi} className="flex flex-col gap-1">
+          <div key={wi} className="flex flex-col gap-[3px] sm:gap-1">
             {week.map((day) => (
               <div
                 key={day.date}
                 title={`${day.date}: ${day.rate < 0 ? 'sem dados' : `${day.rate}%`}`}
-                className={`w-3 h-3 rounded-sm ${getCellColor(day.rate)} transition-colors`}
+                className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm ${getCellColor(day.rate)} transition-colors`}
               />
             ))}
           </div>
@@ -77,16 +77,16 @@ function Heatmap({ history, todayDate, todayRate }: {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-3 mt-4 text-xs text-muted-foreground">
+      <div className="flex items-center gap-2 sm:gap-3 mt-3 sm:mt-4 text-[10px] sm:text-xs text-muted-foreground">
         <span>Menos</span>
-        <div className="flex gap-1">
-          <div className="w-3 h-3 rounded-sm bg-secondary/50" />
-          <div className="w-3 h-3 rounded-sm bg-secondary" />
-          <div className="w-3 h-3 rounded-sm bg-red-900/60" />
-          <div className="w-3 h-3 rounded-sm bg-orange-800/60" />
-          <div className="w-3 h-3 rounded-sm bg-purple-800/60" />
-          <div className="w-3 h-3 rounded-sm bg-purple-600/70" />
-          <div className="w-3 h-3 rounded-sm bg-purple-500" />
+        <div className="flex gap-0.5 sm:gap-1">
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-secondary/50" />
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-secondary" />
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-red-900/60" />
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-orange-800/60" />
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-purple-800/60" />
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-purple-600/70" />
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm bg-purple-500" />
         </div>
         <span>Mais</span>
       </div>
@@ -174,29 +174,29 @@ export function Stats() {
   };
 
   return (
-    <div className="space-y-8 py-8 animate-in fade-in duration-500">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8 py-2 sm:py-4 lg:py-8 animate-in fade-in duration-500">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
           Analytics
         </h1>
-        <p className="text-muted-foreground mt-1">Seu progresso e consistência</p>
+        <p className="text-sm sm:text-base text-muted-foreground mt-1">Seu progresso e consistência</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {statCards.map((card) => {
           const Icon = card.icon;
           return (
-            <div key={card.label} className="bg-card/50 border border-border rounded-xl p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className={`w-10 h-10 rounded-lg ${card.bg} flex items-center justify-center`}>
-                  <Icon className={`w-5 h-5 ${card.color}`} />
+            <div key={card.label} className="bg-card/50 border border-border rounded-xl p-3 sm:p-5">
+              <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg ${card.bg} flex items-center justify-center shrink-0`}>
+                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${card.color}`} />
                 </div>
-                <span className="text-sm text-muted-foreground">{card.label}</span>
+                <span className="text-xs sm:text-sm text-muted-foreground truncate">{card.label}</span>
               </div>
-              <p className="text-2xl font-bold text-foreground">{card.value}</p>
-              <p className="text-xs text-muted-foreground mt-1">{card.sub}</p>
+              <p className="text-xl sm:text-2xl font-bold text-foreground">{card.value}</p>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 sm:mt-1">{card.sub}</p>
             </div>
           );
         })}
@@ -206,10 +206,10 @@ export function Stats() {
       <Heatmap history={history} todayDate={today} todayRate={todayRate} />
 
       {/* XP Chart */}
-      <div className="bg-card/50 border border-border rounded-xl p-6">
-        <h2 className="text-lg font-semibold mb-1">XP por Dia</h2>
-        <p className="text-sm text-muted-foreground mb-6">Últimos 7 dias</p>
-        <div className="h-64">
+      <div className="bg-card/50 border border-border rounded-xl p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-1">XP por Dia</h2>
+        <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">Últimos 7 dias</p>
+        <div className="h-48 sm:h-56 lg:h-64">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={xpChartData}>
               <defs>
@@ -235,10 +235,10 @@ export function Stats() {
       </div>
 
       {/* Completion Rate Chart */}
-      <div className="bg-card/50 border border-border rounded-xl p-6">
-        <h2 className="text-lg font-semibold mb-1">Taxa de Conclusão</h2>
-        <p className="text-sm text-muted-foreground mb-6">Porcentagem de tarefas completadas por dia</p>
-        <div className="h-64">
+      <div className="bg-card/50 border border-border rounded-xl p-4 sm:p-6">
+        <h2 className="text-base sm:text-lg font-semibold mb-1">Taxa de Conclusão</h2>
+        <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">Porcentagem de tarefas completadas por dia</p>
+        <div className="h-48 sm:h-56 lg:h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={completionChartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(217.2, 32.6%, 17.5%)" />

@@ -91,17 +91,17 @@ export function Focus() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto py-12 animate-in fade-in duration-500">
+    <div className="max-w-2xl mx-auto py-4 sm:py-8 lg:py-12 animate-in fade-in duration-500">
       {/* Header */}
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
+      <div className="text-center mb-6 sm:mb-8 lg:mb-10">
+        <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
           Modo Foco Profundo
         </h1>
-        <p className="text-muted-foreground mt-2">Técnica Pomodoro para foco máximo</p>
+        <p className="text-sm sm:text-base text-muted-foreground mt-1.5 sm:mt-2">Técnica Pomodoro para foco máximo</p>
       </div>
 
       {/* Mode Tabs */}
-      <div className="flex justify-center gap-2 mb-10">
+      <div className="flex justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 lg:mb-10">
         {(Object.keys(MODE_CONFIG) as PomodoroMode[]).map((m) => {
           const cfg = MODE_CONFIG[m];
           const Icon = cfg.icon;
@@ -111,14 +111,15 @@ export function Focus() {
               key={m}
               onClick={() => switchMode(m)}
               disabled={isRunning}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                 isActive
                   ? `bg-gradient-to-r ${cfg.gradient} text-white shadow-lg`
                   : 'bg-secondary text-muted-foreground hover:text-foreground disabled:opacity-50'
               }`}
             >
-              <Icon className="w-4 h-4" />
-              {cfg.label}
+              <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">{cfg.label}</span>
+              <span className="sm:hidden">{m === 'work' ? 'Foco' : m === 'shortBreak' ? 'Curta' : 'Longa'}</span>
             </button>
           );
         })}
@@ -130,10 +131,10 @@ export function Focus() {
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="bg-card border border-border rounded-2xl p-10 flex flex-col items-center"
+        className="bg-card border border-border rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col items-center"
       >
         {/* Circular Progress */}
-        <div className="relative w-72 h-72 mb-8">
+        <div className="relative w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 mb-6 sm:mb-8">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
             <circle
               cx="100" cy="100" r="90"
@@ -153,43 +154,43 @@ export function Focus() {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-6xl font-mono font-bold tabular-nums text-foreground">
+            <span className="text-4xl sm:text-5xl lg:text-6xl font-mono font-bold tabular-nums text-foreground">
               {formatTime(timeRemaining)}
             </span>
-            <span className="text-sm text-muted-foreground mt-2 uppercase tracking-widest">
+            <span className="text-xs sm:text-sm text-muted-foreground mt-1.5 sm:mt-2 uppercase tracking-widest">
               {config.label}
             </span>
           </div>
         </div>
 
         {/* Controls */}
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-3 sm:gap-4 mb-6 sm:mb-8">
           <button
             onClick={toggleTimer}
-            className={`w-16 h-16 rounded-full flex items-center justify-center transition-all shadow-lg bg-gradient-to-r ${config.gradient} hover:opacity-90 active:scale-95`}
+            className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center transition-all shadow-lg bg-gradient-to-r ${config.gradient} hover:opacity-90 active:scale-95`}
           >
             {isRunning
-              ? <Pause className="w-6 h-6 fill-white text-white" />
-              : <Play className="w-6 h-6 fill-white text-white ml-1" />
+              ? <Pause className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white" />
+              : <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-white text-white ml-0.5" />
             }
           </button>
           <button
             onClick={reset}
-            className="w-16 h-16 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors"
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors"
           >
-            <RotateCcw className="w-5 h-5 text-muted-foreground" />
+            <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
           </button>
         </div>
 
         {/* Cycle Dots */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 sm:gap-6">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground uppercase tracking-wider">Ciclos</span>
-            <div className="flex gap-1.5">
+            <span className="text-[10px] sm:text-xs text-muted-foreground uppercase tracking-wider">Ciclos</span>
+            <div className="flex gap-1 sm:gap-1.5">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div
                   key={i}
-                  className={`w-3 h-3 rounded-full transition-all ${
+                  className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all ${
                     i < cyclesCompleted
                       ? `bg-gradient-to-r ${config.gradient} shadow-sm`
                       : 'bg-secondary'
@@ -199,16 +200,16 @@ export function Focus() {
             </div>
           </div>
           <div className="w-px h-4 bg-border" />
-          <div className="text-xs text-muted-foreground">
+          <div className="text-[10px] sm:text-xs text-muted-foreground">
             <span className="text-foreground font-semibold">{totalSessions}</span> sessões hoje
           </div>
         </div>
       </motion.div>
 
       {/* Tips */}
-      <div className="mt-8 bg-card/50 border border-border rounded-xl p-6">
-        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">Dicas de Foco</h3>
-        <ul className="space-y-2 text-sm text-muted-foreground">
+      <div className="mt-4 sm:mt-6 lg:mt-8 bg-card/50 border border-border rounded-xl p-4 sm:p-6">
+        <h3 className="text-xs sm:text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2 sm:mb-3">Dicas de Foco</h3>
+        <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
           <li>Feche todas as abas desnecessárias antes de iniciar</li>
           <li>Coloque o celular em modo avião ou em outro cômodo</li>
           <li>Use fones com ruído branco se o ambiente for barulhento</li>

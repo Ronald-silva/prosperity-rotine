@@ -80,25 +80,25 @@ export function Settings() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-8 space-y-10 animate-in fade-in duration-500">
+    <div className="max-w-3xl mx-auto py-4 sm:py-6 lg:py-8 space-y-6 sm:space-y-8 lg:space-y-10 animate-in fade-in duration-500">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+        <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
           Configurações
         </h1>
-        <p className="text-muted-foreground mt-1">Personalize sua rotina de prosperidade</p>
+        <p className="text-sm sm:text-base text-muted-foreground mt-1">Personalize sua rotina de prosperidade</p>
       </div>
 
       {/* Tasks Section */}
-      <section className="bg-card/50 border border-border rounded-xl p-6">
-        <div className="flex items-center justify-between mb-6">
+      <section className="bg-card/50 border border-border rounded-xl p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 mb-4 sm:mb-6">
           <div>
-            <h2 className="text-lg font-semibold">Tarefas Diárias</h2>
-            <p className="text-sm text-muted-foreground">Gerencie suas tarefas e recompensas XP</p>
+            <h2 className="text-base sm:text-lg font-semibold">Tarefas Diárias</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground">Gerencie suas tarefas e recompensas XP</p>
           </div>
           <button
             onClick={() => setShowAdd(!showAdd)}
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors w-full sm:w-auto justify-center sm:justify-start"
           >
             <Plus className="w-4 h-4" />
             Adicionar
@@ -159,63 +159,67 @@ export function Settings() {
         {/* Task List */}
         <div className="space-y-1">
           {tasks.map(task => (
-            <div key={task.id} className="flex items-center gap-3 p-3 rounded-lg hover:bg-secondary/50 transition-colors group">
+            <div key={task.id} className="rounded-lg hover:bg-secondary/50 transition-colors group">
               {editingId === task.id ? (
-                // Edit mode
-                <>
-                  <div className={`w-2 h-2 rounded-full ${getCategoryColor(editCategory)}`} />
-                  <input
-                    type="text"
-                    value={editTitle}
-                    onChange={e => setEditTitle(e.target.value)}
-                    onKeyDown={e => e.key === 'Enter' && saveEdit()}
-                    className="flex-1 px-2 py-1 bg-secondary border border-border rounded text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    autoFocus
-                  />
-                  <select
-                    value={editCategory}
-                    onChange={e => setEditCategory(e.target.value as TaskCategory)}
-                    className="px-2 py-1 bg-secondary border border-border rounded text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    {CATEGORY_OPTIONS.map(opt => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                  </select>
-                  <input
-                    type="number"
-                    min={1}
-                    max={500}
-                    value={editXP}
-                    onChange={e => setEditXP(Number(e.target.value))}
-                    className="w-16 px-2 py-1 bg-secondary border border-border rounded text-xs text-foreground text-center focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  <button onClick={saveEdit} className="p-1.5 text-green-400 hover:text-green-300">
-                    <Check className="w-4 h-4" />
-                  </button>
-                  <button onClick={cancelEdit} className="p-1.5 text-muted-foreground hover:text-foreground">
-                    <X className="w-4 h-4" />
-                  </button>
-                </>
+                // Edit mode — stacked on mobile
+                <div className="p-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full shrink-0 ${getCategoryColor(editCategory)}`} />
+                    <input
+                      type="text"
+                      value={editTitle}
+                      onChange={e => setEditTitle(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && saveEdit()}
+                      className="flex-1 px-2 py-1.5 bg-secondary border border-border rounded text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary min-w-0"
+                      autoFocus
+                    />
+                  </div>
+                  <div className="flex items-center gap-2 pl-4">
+                    <select
+                      value={editCategory}
+                      onChange={e => setEditCategory(e.target.value as TaskCategory)}
+                      className="flex-1 min-w-0 px-2 py-1.5 bg-secondary border border-border rounded text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      {CATEGORY_OPTIONS.map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                    <input
+                      type="number"
+                      min={1}
+                      max={500}
+                      value={editXP}
+                      onChange={e => setEditXP(Number(e.target.value))}
+                      className="w-16 px-2 py-1.5 bg-secondary border border-border rounded text-xs text-foreground text-center focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                    <button onClick={saveEdit} className="p-1.5 text-green-400 hover:text-green-300">
+                      <Check className="w-4 h-4" />
+                    </button>
+                    <button onClick={cancelEdit} className="p-1.5 text-muted-foreground hover:text-foreground">
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
               ) : (
                 // View mode
-                <>
-                  <div className={`w-2 h-2 rounded-full ${getCategoryColor(task.category)}`} />
-                  <span className="flex-1 text-sm text-foreground">{task.title}</span>
-                  <span className="text-xs text-muted-foreground hidden sm:block">{getCategoryLabel(task.category)}</span>
-                  <span className="text-xs font-mono text-primary">{task.xpReward} XP</span>
+                <div className="flex items-center gap-2 sm:gap-3 p-3">
+                  <div className={`w-2 h-2 rounded-full shrink-0 ${getCategoryColor(task.category)}`} />
+                  <span className="flex-1 text-sm text-foreground min-w-0 truncate">{task.title}</span>
+                  <span className="text-xs text-muted-foreground hidden sm:block shrink-0">{getCategoryLabel(task.category)}</span>
+                  <span className="text-xs font-mono text-primary shrink-0">{task.xpReward} XP</span>
                   <button
                     onClick={() => startEdit(task.id)}
-                    className="p-1.5 text-muted-foreground hover:text-foreground opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="p-1.5 text-muted-foreground hover:text-foreground sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shrink-0"
                   >
                     <Pencil className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => removeTask(task.id)}
-                    className="p-1.5 text-muted-foreground hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="p-1.5 text-muted-foreground hover:text-red-400 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shrink-0"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
-                </>
+                </div>
               )}
             </div>
           ))}
@@ -228,7 +232,7 @@ export function Settings() {
       </section>
 
       {/* Pomodoro Section */}
-      <section className="bg-card/50 border border-border rounded-xl p-6 space-y-6">
+      <section className="bg-card/50 border border-border rounded-xl p-4 sm:p-6 space-y-5 sm:space-y-6">
         <div>
           <h2 className="text-lg font-semibold">Pomodoro</h2>
           <p className="text-sm text-muted-foreground">Ajuste os tempos do modo foco</p>
@@ -301,7 +305,7 @@ export function Settings() {
       </section>
 
       {/* Sound & Notifications Section */}
-      <section className="bg-card/50 border border-border rounded-xl p-6 space-y-5">
+      <section className="bg-card/50 border border-border rounded-xl p-4 sm:p-6 space-y-4 sm:space-y-5">
         <div>
           <h2 className="text-lg font-semibold">Som & Notificações</h2>
           <p className="text-sm text-muted-foreground">Controle feedback sonoro e alertas</p>

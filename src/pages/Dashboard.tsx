@@ -131,41 +131,41 @@ export function Dashboard() {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-8 animate-in fade-in duration-500">
 
       {/* Hero Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-2 bg-gradient-to-br from-indigo-900 to-slate-900 rounded-xl p-8 relative overflow-hidden border border-indigo-500/20 shadow-lg shadow-indigo-500/10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="md:col-span-2 bg-gradient-to-br from-indigo-900 to-slate-900 rounded-xl p-5 sm:p-6 lg:p-8 relative overflow-hidden border border-indigo-500/20 shadow-lg shadow-indigo-500/10">
           <div className="relative z-10">
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-1.5 sm:mb-2">
               Foco do Dia
             </h1>
-            <p className="text-indigo-200 mb-6 max-w-lg">
+            <p className="text-indigo-200 text-sm sm:text-base mb-4 sm:mb-6 max-w-lg">
               "A única coisa que importa é a execução consistente."
             </p>
 
-            <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md rounded-lg p-4 border border-white/10 hover:bg-white/10 transition-colors cursor-pointer group">
-              <div className="w-6 h-6 rounded-full border-2 border-indigo-400 flex items-center justify-center group-hover:bg-indigo-400/20">
-                <div className="w-3 h-3 bg-indigo-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="flex items-center gap-3 sm:gap-4 bg-white/5 backdrop-blur-md rounded-lg p-3 sm:p-4 border border-white/10 hover:bg-white/10 transition-colors cursor-pointer group">
+              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-indigo-400 flex items-center justify-center group-hover:bg-indigo-400/20 shrink-0">
+                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-indigo-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
-              <span className="text-lg font-medium text-white">
+              <span className="text-sm sm:text-lg font-medium text-white">
                 Finalizar o módulo de IA Avançada
               </span>
             </div>
           </div>
 
-          <Target className="absolute -right-8 -bottom-8 w-64 h-64 text-indigo-500/10 rotate-12" />
+          <Target className="absolute -right-8 -bottom-8 w-40 sm:w-64 h-40 sm:h-64 text-indigo-500/10 rotate-12" />
         </div>
 
         {/* Stats Card */}
-        <div className="bg-card border border-border rounded-xl p-6 flex flex-col justify-between">
+        <div className="bg-card border border-border rounded-xl p-4 sm:p-6 flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-muted-foreground mb-4">Progresso Diário</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-muted-foreground mb-3 sm:mb-4">Progresso Diário</h3>
             <div className="flex items-end gap-2 mb-2">
-              <span className="text-5xl font-bold text-primary">{Math.round(progress)}%</span>
-              <span className="text-sm text-muted-foreground mb-2">concluído</span>
+              <span className="text-4xl sm:text-5xl font-bold text-primary">{Math.round(progress)}%</span>
+              <span className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">concluído</span>
             </div>
-            <div className="h-3 w-full bg-secondary rounded-full overflow-hidden">
+            <div className="h-2.5 sm:h-3 w-full bg-secondary rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-primary to-purple-400 transition-all duration-1000 ease-out"
                 style={{ width: `${progress}%` }}
@@ -173,7 +173,7 @@ export function Dashboard() {
             </div>
           </div>
 
-          <div className="mt-6 pt-6 border-t border-border flex justify-between items-center text-sm">
+          <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-border flex justify-between items-center text-sm">
             <span className="text-muted-foreground">Streak Atual</span>
             <div className="flex items-center gap-1.5 text-orange-500 font-bold">
               <Flame className="w-4 h-4 fill-current" />
@@ -184,12 +184,12 @@ export function Dashboard() {
       </div>
 
       {/* Shame Timer */}
-      <div className={`flex items-center justify-between p-4 rounded-xl border transition-colors ${shameBg}`}>
+      <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 p-3 sm:p-4 rounded-xl border transition-colors ${shameBg}`}>
         <div className="flex items-center gap-3">
-          <Clock className={`w-5 h-5 ${shameColor}`} />
+          <Clock className={`w-5 h-5 shrink-0 ${shameColor}`} />
           <div>
-            <p className={`text-sm font-semibold ${shameColor}`}>{shameMessage}</p>
-            <p className="text-xs text-muted-foreground">
+            <p className={`text-xs sm:text-sm font-semibold ${shameColor}`}>{shameMessage}</p>
+            <p className="text-[10px] sm:text-xs text-muted-foreground">
               {completedCount === totalCount
                 ? `${completedCount}/${totalCount} tarefas concluídas`
                 : `Última ação há ${shameDisplay}`
@@ -199,19 +199,19 @@ export function Dashboard() {
         </div>
         <button
           onClick={() => setWarReportOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-secondary text-muted-foreground hover:text-foreground rounded-lg text-sm font-medium transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-secondary text-muted-foreground hover:text-foreground rounded-lg text-xs sm:text-sm font-medium transition-colors w-full sm:w-auto justify-center sm:justify-start"
         >
-          <Scroll className="w-4 h-4" />
+          <Scroll className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           Encerrar Dia
         </button>
       </div>
 
       {/* Task Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {activeCategories.map(([key, label]) => (
-          <div key={key} className="bg-card/50 border border-border rounded-xl p-5 hover:border-primary/50 transition-colors">
-            <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
-              <span className={cn("w-2 h-8 rounded-full", categoryColors[key] ?? 'bg-slate-500')} />
+          <div key={key} className="bg-card/50 border border-border rounded-xl p-4 sm:p-5 hover:border-primary/50 transition-colors">
+            <h3 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4 flex items-center gap-2">
+              <span className={cn("w-2 h-6 sm:h-8 rounded-full", categoryColors[key] ?? 'bg-slate-500')} />
               {label}
             </h3>
 

@@ -36,10 +36,10 @@ export function AddObjectiveModal({ isOpen, onClose }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-card w-full max-w-md p-6 rounded-xl border border-border shadow-2xl animate-in zoom-in-95 duration-200">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold">Novo Objetivo</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-200 p-3 sm:p-4">
+      <div className="bg-card w-full max-w-md p-4 sm:p-6 rounded-xl border border-border shadow-2xl animate-in zoom-in-95 duration-200">
+        <div className="flex justify-between items-center mb-4 sm:mb-6">
+          <h2 className="text-lg sm:text-xl font-bold">Novo Objetivo</h2>
           <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
             <X className="w-5 h-5" />
           </button>
