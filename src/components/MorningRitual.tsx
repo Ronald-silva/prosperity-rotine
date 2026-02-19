@@ -36,6 +36,13 @@ export function MorningRitual() {
     }, 600);
   };
 
+  const handleSkip = () => {
+    setExiting(true);
+    setTimeout(() => {
+      completeMorningRitual();
+    }, 400);
+  };
+
   return (
     <AnimatePresence>
       {!exiting && (
@@ -46,6 +53,14 @@ export function MorningRitual() {
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-[100] bg-background flex items-center justify-center"
         >
+          {/* Skip button */}
+          <button
+            onClick={handleSkip}
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 text-sm text-muted-foreground hover:text-foreground transition-colors z-10"
+          >
+            Pular ritual
+          </button>
+
           <div className="max-w-lg w-full mx-4 px-2 sm:px-0">
             <AnimatePresence mode="wait">
               {step === 0 && (

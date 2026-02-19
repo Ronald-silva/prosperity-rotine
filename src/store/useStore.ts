@@ -67,8 +67,9 @@ interface AppState {
   settings: SettingsState;
   milestones: Milestone[];
 
+  dayEnded: boolean;
+
   toggleTask: (id: string) => void;
-  resetDay: () => void;
   addXP: (amount: number) => void;
   checkStreak: () => void;
   addObjective: (objective: Objective) => void;
@@ -169,6 +170,7 @@ export const useStore = create<AppState>()(
         pomodoroLongBreak: 15,
       },
       milestones: DEFAULT_MILESTONES,
+      dayEnded: false,
 
       toggleTask: (id) => set((state) => {
         const task = state.tasks.find((t) => t.id === id);
@@ -205,21 +207,6 @@ export const useStore = create<AppState>()(
         };
       }),
 
-      resetDay: () => set((state) => {
-        const today = getToday();
-        const record = snapshotDay(state.tasks, today);
-        const history = migrateHistory(state.user.history);
-        const filtered = history.filter(r => r.date !== today);
-
-        return {
-          tasks: state.tasks.map(t => ({ ...t, status: 'pending' as const, completedAt: undefined })),
-          user: {
-            ...state.user,
-            history: [...filtered, record],
-          },
-        };
-      }),
-
       checkStreak: () => {
         get().initializeDay();
       },
@@ -232,15 +219,26 @@ export const useStore = create<AppState>()(
         if (today === lastActive) return;
 
         const history = migrateHistory(state.user.history);
-        const record = snapshotDay(state.tasks, lastActive);
-        const filtered = history.filter(r => r.date !== lastActive);
+
+        // Only create a snapshot for lastActive if endDay didn't already save one
+        const alreadySnapshotted = history.some(r => r.date === lastActive);
+        const record = alreadySnapshotted ? null : snapshotDay(state.tasks, lastActive);
+        const newHistory = record
+          ? [...history.filter(r => r.date !== lastActive), record]
+          : history;
+
+        // For streak calculation, use the saved snapshot if available
+        const lastDayRecord = alreadySnapshotted
+          ? history.find(r => r.date === lastActive)
+          : record;
 
         const yesterday = getYesterday();
         let newStreak = state.user.streak;
 
-        if (lastActive === yesterday && record.tasksCompleted > 0) {
+        if (lastActive === yesterday && lastDayRecord && lastDayRecord.tasksCompleted > 0) {
           newStreak = state.user.streak + 1;
         } else {
+          // Reset streak if: missed a day entirely, OR was active but completed 0 tasks
           newStreak = 0;
         }
 
@@ -249,12 +247,13 @@ export const useStore = create<AppState>()(
 
         set({
           tasks: state.tasks.map(t => ({ ...t, status: 'pending' as const, completedAt: undefined })),
+          dayEnded: false,
           user: {
             ...state.user,
             lastActive: today,
             streak: newStreak,
             bestStreak: newBestStreak,
-            history: [...filtered, record],
+            history: newHistory,
           },
         });
       },
@@ -272,8 +271,10 @@ export const useStore = create<AppState>()(
         const history = migrateHistory(state.user.history);
         const filtered = history.filter(r => r.date !== today);
 
+        // Save the snapshot but do NOT reset tasks — they stay visible
+        // until initializeDay resets them on the next day
         return {
-          tasks: state.tasks.map(t => ({ ...t, status: 'pending' as const, completedAt: undefined })),
+          dayEnded: true,
           user: {
             ...state.user,
             history: [...filtered, record],

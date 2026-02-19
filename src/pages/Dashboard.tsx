@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { WarReport } from '../components/WarReport';
 
 export function Dashboard() {
-  const { tasks, toggleTask, user, settings, checkMilestones } = useStore();
+  const { tasks, toggleTask, user, settings, checkMilestones, dayEnded } = useStore();
   const [warReportOpen, setWarReportOpen] = useState(false);
   const [now, setNow] = useState(Date.now());
 
@@ -144,13 +144,10 @@ export function Dashboard() {
               "A única coisa que importa é a execução consistente."
             </p>
 
-            <div className="flex items-center gap-3 sm:gap-4 bg-white/5 backdrop-blur-md rounded-lg p-3 sm:p-4 border border-white/10 hover:bg-white/10 transition-colors cursor-pointer group">
-              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-indigo-400 flex items-center justify-center group-hover:bg-indigo-400/20 shrink-0">
-                <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-indigo-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="flex items-center gap-3 sm:gap-4 bg-white/5 backdrop-blur-md rounded-lg p-3 sm:p-4 border border-white/10">
+              <div className="text-sm sm:text-lg font-medium text-white">
+                {completedCount}/{totalCount} missões • <span className="text-indigo-300">{user.xp.toLocaleString('pt-BR')} XP</span> acumulados
               </div>
-              <span className="text-sm sm:text-lg font-medium text-white">
-                Finalizar o módulo de IA Avançada
-              </span>
             </div>
           </div>
 
@@ -199,10 +196,16 @@ export function Dashboard() {
         </div>
         <button
           onClick={() => setWarReportOpen(true)}
-          className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-secondary text-muted-foreground hover:text-foreground rounded-lg text-xs sm:text-sm font-medium transition-colors w-full sm:w-auto justify-center sm:justify-start"
+          disabled={dayEnded}
+          className={cn(
+            "flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors w-full sm:w-auto justify-center sm:justify-start",
+            dayEnded
+              ? "bg-green-500/10 text-green-400 border border-green-500/20 cursor-default"
+              : "bg-secondary text-muted-foreground hover:text-foreground"
+          )}
         >
           <Scroll className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          Encerrar Dia
+          {dayEnded ? 'Dia Encerrado' : 'Encerrar Dia'}
         </button>
       </div>
 
